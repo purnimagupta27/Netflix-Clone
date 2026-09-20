@@ -6,7 +6,7 @@ export const validateInput = (email: string, password : string) => {
         return "This email format is not valid"
     }
     if(!isValidPassword){
-        return "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character"
+        return "Must include 8+ characters, a number, uppercase & symbol"
     }
     return null
 }
