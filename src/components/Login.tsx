@@ -2,6 +2,11 @@ import { useRef, useState } from "react";
 import backgroundImage from "../assets/bg_image.png";
 import Header from "./Header";
 import { validateInput } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -15,10 +20,40 @@ const Login = () => {
   };
 
   const checkValidation = () => {
-    if(!email.current || !password.current) return 
+    if (!email.current || !password.current) return;
     const message = validateInput(email.current.value, password.current.value);
     setError(message);
-    if(message) return 
+    if (message) return;
+
+    if (!isSignInForm) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value,
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setError(errorCode + "-" + errorMessage);
+        });
+    } else {
+      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user)
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setError(errorCode + "-" + errorMessage);
+        });
+    }
   };
 
   return (
@@ -30,7 +65,10 @@ const Login = () => {
         alt="Background-Image"
       />
 
-      <form onSubmit={(e) => e.preventDefault()} className=" h-130 absolute w-3/12 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-10 bg-black/80 text-white">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className=" h-130 absolute w-3/12 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-10 bg-black/80 text-white"
+      >
         <h2 className="font-bold text-3xl py-4">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h2>
