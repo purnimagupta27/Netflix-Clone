@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Browse from "./components/Browse";
 import Login from "./components/Login";
 import { onAuthStateChanged } from "firebase/auth";
@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -17,6 +18,7 @@ const App = () => {
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
       } else {
         dispatch(removeUser());
+        navigate("/")
       }
     });
   }, []);
