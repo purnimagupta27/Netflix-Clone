@@ -10,14 +10,12 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
+  
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const navigate = useNavigate();
 
   const name = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
@@ -52,7 +50,6 @@ const Login = () => {
                   displayName: name.current?.value,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               console.log(error.message);
@@ -74,7 +71,6 @@ const Login = () => {
           const user = userCredential.user;
           dispatch(addUser({email: user.email, displayName: user.displayName}))
           console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
