@@ -60,9 +60,9 @@ const Header = () => {
   <div className="relative">
     <div
       onClick={handleIsOpen}
-      className="flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-gray-800 transition-all duration-200 cursor-pointer"
+      className="flex items-center gap-1 px-2 py-1 hover:bg-gray-300 transition-all duration-200 cursor-pointer"
     >
-      <img className="w-8 h-8 rounded-full object-cover" src={profileLogo} alt="Profile" />
+      <img className="w-8 h-8 object-cover" src={profileLogo} alt="Profile" />
       <ChevronDown
         className={`text-white mt-0.5 transition-transform duration-200 ${
           isOpen ? "rotate-180" : ""
@@ -72,11 +72,11 @@ const Header = () => {
     </div>
 
     {isOpen && (
-      <div className="absolute right-0 mt-2 w-40 bg-gray-900 border border-gray-700 rounded-lg shadow-xl overflow-hidden z-50">
+      <div className="absolute right-0 mt-2 w-40 bg-gray-300 shadow-xl overflow-hidden z-50">
         {/* <p className="px-4 py-2 text-sm text-gray-300 border-b border-gray-700">{user?.displayName}</p> */}
         <button
           onClick={handleSignout}
-          className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-800 hover:text-red-300 transition-colors duration-150"
+          className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-400 hover:text-red-300 transition-colors duration-150 cursor-pointer"
         >
           Log Out
         </button>
