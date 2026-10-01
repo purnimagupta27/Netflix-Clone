@@ -6,7 +6,6 @@ interface VideoTitleProps {
 }
 
 const VideoTitle = ({title, overview}: VideoTitleProps) => {
-    console.log(title, overview)
   return (
     <div className="pt-50 px-20">
         <h1 className="text-6xl font-bold">{title}</h1>
