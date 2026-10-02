@@ -50,7 +50,7 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute px-20 py-6 bg-linear-to-b from-black w-screen flex justify-between">
+    <div className="absolute px-20 py-6 bg-linear-to-b from-black w-screen flex justify-between z-20">
       <img
         className="w-38 min-w-38 h-auto shrink-0 object-contain"
         src={logo}
@@ -60,7 +60,7 @@ const Header = () => {
   <div className="relative">
     <div
       onClick={handleIsOpen}
-      className="flex items-center gap-1 px-2 py-1 hover:bg-gray-300 transition-all duration-200 cursor-pointer"
+      className="flex items-center gap-1 px-2 py-1 hover:bg-white/20 transition-all duration-200 cursor-pointer"
     >
       <img className="w-8 h-8 object-cover" src={profileLogo} alt="Profile" />
       <ChevronDown
@@ -72,11 +72,11 @@ const Header = () => {
     </div>
 
     {isOpen && (
-      <div className="absolute right-0 mt-2 w-40 bg-gray-300 shadow-xl overflow-hidden z-50">
+      <div className="absolute right-0 mt-2 w-40 bg-white/20 shadow-xl overflow-hidden z-50">
         {/* <p className="px-4 py-2 text-sm text-gray-300 border-b border-gray-700">{user?.displayName}</p> */}
         <button
           onClick={handleSignout}
-          className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-400 hover:text-red-300 transition-colors duration-150 cursor-pointer"
+          className="w-full text-left px-4 py-2 text-sm text-red-400 bg-white/20 hover:bg-white/10 hover:text-red-300 transition-colors duration-150 cursor-pointer"
         >
           Log Out
         </button>
