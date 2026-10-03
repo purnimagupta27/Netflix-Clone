@@ -20,7 +20,7 @@ const useMovieTrailer = (id: number) => {
     );
     //console.log(id)
     const json = await data.json();
-    //console.log(data)
+    //console.log(json)
 
     const filterData = json.results.filter(
       (video: Video) => video.type === "Trailer",

@@ -50,7 +50,7 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute px-20 py-6 bg-linear-to-b from-black w-screen flex justify-between z-20">
+    <div className="absolute px-20 py-6 bg-linear-to-b from-black w-screen flex flex-row items-center justify-between z-20">
       <img
         className="w-38 min-w-38 h-auto shrink-0 object-contain"
         src={logo}

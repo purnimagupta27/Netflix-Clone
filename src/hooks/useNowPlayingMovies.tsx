@@ -13,8 +13,6 @@ const useNowPlayingMovies = () => {
     dispatch(addNowPlayingMovies(json.results))
   }
   
-
-
   useEffect(() => {
     listOfMovies()
   }, [])

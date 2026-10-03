@@ -70,7 +70,7 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           dispatch(addUser({email: user.email, displayName: user.displayName}))
-          console.log(user);
+          //console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
