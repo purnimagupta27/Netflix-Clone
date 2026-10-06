@@ -74,7 +74,7 @@ const Header = () => {
         <div className="relative">
           <div
             onClick={handleIsOpen}
-            className="flex items-center gap-1 px-2 py-1 hover:bg-white/20 transition-all duration-200 cursor-pointer"
+            className="flex items-center gap-1 px-2 py-1 hover:bg-white/20  rounded-sm transition-all duration-200 cursor-pointer"
           >
             <img
               className="w-8 h-8 object-cover"
