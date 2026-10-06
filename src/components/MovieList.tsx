@@ -15,7 +15,7 @@ const MovieList = ({ movies, title }: { movies: Movie[]; title: string }) => {
           {movies?.map((movie) => (
             <div className="w-36 md:w-48 pr-4" key={movie.id}>
               <img 
-              className="rounded-sm cursor-pointer"
+              className="rounded-lg cursor-pointer"
               alt="Movie Card" 
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}/>
             </div>
