@@ -1,4 +1,4 @@
-import { ChevronDown, Search } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import logo from "../assets/logo.png";
 import profileLogo from "../assets/profile_logo.png";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,9 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const user = useSelector((store: RootState) => store.user);
+  const showGptSearch = useSelector(
+    (store: RootState) => store.gpt.showGptSearch,
+  );
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -66,8 +69,7 @@ const Header = () => {
       <button 
       onClick={handleGptSearch}
       className="ml-240 bg-white/20 hover:bg-white/15 px-4 py-2 rounded text-base text-white flex flex-row items-center gap-1 font-semibold cursor-pointer">
-        <Search />
-        Gpt Search
+        {showGptSearch? "HomePage" : "Gpt Search"}
       </button>
 
       {user && (

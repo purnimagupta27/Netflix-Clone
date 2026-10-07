@@ -3,10 +3,10 @@ const GptSearchBar = () => {
     <div className="pt-[35%] md:pt-[8%] flex justify-center">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="w-full md:w-1/2 bg-black/80 grid grid-cols-12 rounded-lg"
+        className="w-full md:w-1/2 bg-black/80 grid grid-cols-12"
       >
         <input
-          className="p-4 m-4 col-span-9 bg-zinc-800 text-white rounded-lg outline-none placeholder:text-gray-400 text-base"
+          className="p-4 m-4 col-span-9 bg-zinc-800 text-white outline-none placeholder:text-gray-400 text-base"
           type="text"
           placeholder="What would you like to watch today?"
         />
