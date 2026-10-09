@@ -1,8 +1,19 @@
 import { useRef } from "react";
 import { groq } from "../utils/openai";
+import { options } from "../utils/constants";
+import { addGptMovies } from "../utils/gptSlice";
+import { useDispatch } from "react-redux";
 
 const GptSearchBar = () => {
   const searchText = useRef<HTMLInputElement>(null);
+  const dispatch = useDispatch()
+
+  const searchResults = async(movie: string) => {
+    const data = await fetch(`https://api.themoviedb.org/3/search/movie?query=${movie}&include_adult=false&language=en-US&page=1`, options)
+    const json = await data.json()
+    console.log(json.results)
+    return json.results
+  }
 
   const handleGptSearchClick = async () => {
     console.log(searchText.current?.value);
@@ -33,6 +44,16 @@ const GptSearchBar = () => {
         model: "openai/gpt-oss-20b",
       });
     }
+
+    const gptMessages = chatCompletion.choices[0]?.message.content?.split(", ")
+    console.log(gptMessages)
+
+    const gptMovieArray = gptMessages?.map((movie) => searchResults(movie))
+
+    const resolvedMovieArray = await Promise.all(gptMovieArray ?? [])
+    //const filteredMovies = resolvedMovieArray.filter((movie) => )
+    console.log(resolvedMovieArray)
+    dispatch(addGptMovies(resolvedMovieArray))
   };
 
   return (
