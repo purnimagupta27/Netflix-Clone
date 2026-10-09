@@ -6,7 +6,7 @@ export const SecondaryContainer = () => {
   const movies = useSelector(
     (store: RootState) => store.movie?.nowPlayingMovies,
   );
-  console.log(movies);
+  //console.log(movies);
   if (!movies) return;
 
   return (
