@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { options } from "../utils/constants";
 import { addTrailer } from "../utils/movieSlice";
 import { useEffect } from "react";
-import type { RootState } from "../utils/appStore";
 
 interface Video {
   id: string;
