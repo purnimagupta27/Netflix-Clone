@@ -1,7 +1,8 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { options } from "../utils/constants";
 import { addTrailer } from "../utils/movieSlice";
 import { useEffect } from "react";
+import type { RootState } from "../utils/appStore";
 
 interface Video {
   id: string;
@@ -11,7 +12,7 @@ interface Video {
 }
 
 const useMovieTrailer = (id: number) => {
-      const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const getMovieVideos = async () => {
     const data = await fetch(
@@ -27,12 +28,11 @@ const useMovieTrailer = (id: number) => {
     );
     const trailer = filterData[0];
     //console.log(trailer)
-    dispatch(addTrailer(trailer))
+    dispatch(addTrailer(trailer));
   };
-
   useEffect(() => {
-    getMovieVideos()
+    getMovieVideos();
   }, []);
-}
+};
 
-export default useMovieTrailer
+export default useMovieTrailer;

@@ -1,3 +1,6 @@
+// import { options } from "../utils/constants";
+import { useNavigate } from "react-router-dom";
+
 interface Movie {
   id: number;
   original_title: string;
@@ -7,6 +10,8 @@ interface Movie {
 }
 
 const MovieList = ({ movies, title }: { movies: Movie[]; title: string }) => {
+  const navigate = useNavigate()
+
   return (
     <div className="px-6 mb-10">
       <h2 className="text-lg md:text-3xl py-4 text-white font-semibold">
@@ -19,6 +24,7 @@ const MovieList = ({ movies, title }: { movies: Movie[]; title: string }) => {
             return (
               <div className="w-36 md:w-48 pr-4 shrink-0" key={movie.id}>
                 <img
+                  onClick={() => navigate(`/watch/${movie.id}`)}
                   className="rounded-lg cursor-pointer hover:scale-105 transition-transform duration-200"
                   alt="Movie Card"
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
