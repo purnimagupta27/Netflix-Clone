@@ -5,7 +5,7 @@ import useMovieTrailer from "../hooks/useMovieTrailer";
 export const VideoBackground = ({id}: {id: number}) => {
   const trailerVideo = useSelector((store: RootState) => store.movie?.trailer)
   useMovieTrailer(id)
-  //console.log(trailerVideo)
+  console.log(trailerVideo)
 
   return (
     <div className="w-full overflow-hidden">

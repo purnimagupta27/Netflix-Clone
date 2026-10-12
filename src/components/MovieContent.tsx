@@ -1,10 +1,14 @@
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { VideoBackground } from "./VideoBackground";
+import type { RootState } from "../utils/appStore";
+import { useSelector } from "react-redux";
+import useMovieTrailer from "../hooks/useMovieTrailer";
 
 const MovieContent = () => {
   const navigate = useNavigate();
   const { movieId } = useParams<{ movieId: string }>();
+  const trailerVideo = useSelector((store: RootState) => store.movie?.trailer)
+  useMovieTrailer(Number(movieId))
 
   if (!movieId) return null;
 
@@ -17,7 +21,16 @@ const MovieContent = () => {
         <ArrowLeft size={18} />
         Back to Browse
       </button>
-      <VideoBackground id={Number(movieId)} />
+      <div>
+        <iframe
+            className="absolute inset-0 w-full h-full scale-100"
+            src={`https://www.youtube.com/embed/${trailerVideo?.key}?autoplay=1&controls=1&playsinline=1`}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+      </div>
     </div>
   );
 };
