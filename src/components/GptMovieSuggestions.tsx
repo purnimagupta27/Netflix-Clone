@@ -5,9 +5,10 @@ import { useEffect } from "react";
 import { addGptMovies } from "../utils/gptSlice";
 
 const GptMovieSuggestions = () => {
-  const { movieNames, movieResults } = useSelector(
+  const { movieNames, movieResults, isLoading } = useSelector(
     (store: RootState) => store.gpt,
   );
+
 
   const dispatch = useDispatch()
 
@@ -15,7 +16,22 @@ const GptMovieSuggestions = () => {
     dispatch(addGptMovies({movieNames: null, movieResults: null}))
   }, [])
 
-  if (!movieNames || !movieResults) return null;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col justify-center items-center py-40">
+        <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-gray-400 text-sm font-medium mt-4">
+          Finding recommendations for you...
+        </p>
+      </div>
+    );
+  }
+
+  if (!movieNames || !movieResults) return (
+    <div>
+      <h2 className="text-center text-gray-500 text-sm font-semibold py-50">Search for your favourite movies</h2>
+    </div>
+  );
   
   return (
     <div className="ml-16 mt-16">

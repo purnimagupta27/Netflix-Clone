@@ -8,6 +8,7 @@ const MovieContent = () => {
   const navigate = useNavigate();
   const { movieId } = useParams<{ movieId: string }>();
   const trailerVideo = useSelector((store: RootState) => store.movie?.trailer)
+  console.log(trailerVideo)
   useMovieTrailer(Number(movieId))
 
   if (!movieId) return null;

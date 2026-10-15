@@ -12,12 +12,14 @@ interface GptState {
   showGptSearch: boolean;
   movieNames: string[] | null;
   movieResults: Movie[][] | null;
+  isLoading: boolean
 }
 
 const initialState: GptState = {
     showGptSearch: false,
     movieNames: null,
-    movieResults: null
+    movieResults: null,
+    isLoading: false
 }
 
 const gptSlice = createSlice({
@@ -27,14 +29,18 @@ const gptSlice = createSlice({
     toggleGptSearchView: (state) => {
       state.showGptSearch = !state.showGptSearch;
     },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload
+    },
     addGptMovies: (state, action) => {
       const { movieNames, movieResults } = action.payload;
       state.movieNames = movieNames;
       state.movieResults = movieResults;
+      state.isLoading = false
     },
   },
 });
 
-export const { toggleGptSearchView, addGptMovies } = gptSlice.actions;
+export const { toggleGptSearchView, addGptMovies, setLoading } = gptSlice.actions;
 
 export default gptSlice.reducer;

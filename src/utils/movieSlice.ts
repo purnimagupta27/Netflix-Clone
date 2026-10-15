@@ -16,7 +16,7 @@ interface Trailer {
 
 interface MovieState {
   nowPlayingMovies: Movie[] | null;
-  trailer: Trailer[] | null
+  trailer: Trailer | null
 }
 
 const initialState: MovieState = {
@@ -31,7 +31,7 @@ const moviesSlice = createSlice({
     addNowPlayingMovies: (state, action: PayloadAction<Movie[]>) => {
       state.nowPlayingMovies = action.payload;
     },
-    addTrailer: (state, action: PayloadAction<Trailer[]>) => {
+    addTrailer: (state, action: PayloadAction<Trailer>) => {
       state.trailer = action.payload
     }
   },

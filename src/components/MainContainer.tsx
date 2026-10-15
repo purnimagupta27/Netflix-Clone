@@ -16,7 +16,7 @@ export const MainContainer = () => {
 
   return (
     <div>
-      <VideoTitle title={original_title} overview={overview} />
+      <VideoTitle title={original_title} overview={overview} id={id} />
       <VideoBackground id={id}/>
     </div>
   )
