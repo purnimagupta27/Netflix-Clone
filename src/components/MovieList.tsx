@@ -9,12 +9,20 @@ interface Movie {
   release_date: string;
 }
 
-const MovieList = ({ movies, title }: { movies: Movie[]; title: string }) => {
-  const navigate = useNavigate()
+const MovieList = ({
+  movies,
+  title,
+}: {
+  movies: Movie[] | null;
+  title: string;
+}) => {
+  const navigate = useNavigate();
+
+  if (!movies || movies.length === 0) return null;
 
   return (
-    <div className="px-6 mb-10">
-      <h2 className="text-lg md:text-3xl py-4 text-white font-semibold">
+    <div className="px-4 sm:px-6 mb-6 md:mb-10">
+      <h2 className="text-base sm:text-xl md:text-3xl py-3 md:py-4 text-white font-semibold">
         {title}
       </h2>
       <div className="flex overflow-x-scroll no-scrollbar">
@@ -22,7 +30,7 @@ const MovieList = ({ movies, title }: { movies: Movie[]; title: string }) => {
           {movies?.map((movie) => {
             if (!movie.poster_path) return null;
             return (
-              <div className="w-36 md:w-48 pr-4 shrink-0" key={movie.id}>
+              <div className="w-28 sm:w-32 md:w-40 lg:w-48 pr-3 md:pr-4 shrink-0" key={movie.id}>
                 <img
                   onClick={() => navigate(`/watch/${movie.id}`)}
                   className="rounded-lg cursor-pointer hover:scale-105 transition-transform duration-200"

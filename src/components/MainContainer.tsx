@@ -15,9 +15,9 @@ export const MainContainer = () => {
   //console.log(id)
 
   return (
-    <div>
-      <VideoTitle title={original_title} overview={overview} id={id} />
+    <div className="relative w-full overflow-hidden bg-black">
       <VideoBackground id={id}/>
+      <VideoTitle title={original_title} overview={overview} id={id} />
     </div>
   )
 }

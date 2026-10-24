@@ -94,9 +94,9 @@ const Login = () => {
           e.preventDefault();
           checkValidation();
         }}
-        className=" h-130 absolute w-3/12 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-10 bg-black/80 text-white"
+        className="w-11/12 max-w-md h-auto max-h-[90vh] overflow-y-auto no-scrollbar absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 sm:p-10 bg-black/80 text-white"
       >
-        <h2 className="font-bold text-3xl py-4">
+        <h2 className="font-bold text-2xl sm:text-3xl py-4">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h2>
 
@@ -105,7 +105,7 @@ const Login = () => {
             ref={name}
             type="text"
             placeholder="Full name"
-            className="p-4 mt-4 bg-zinc-800 text-sm w-full rounded-sm"
+            className="p-3 sm:p-4 mt-4 bg-zinc-800 text-sm w-full rounded-sm"
           />
         )}
 
@@ -113,26 +113,26 @@ const Login = () => {
           ref={email}
           type="email"
           placeholder="Email address or Phone number"
-          className="p-4 mt-6 bg-zinc-800 text-sm w-full rounded-sm"
+          className="p-3 sm:p-4 mt-5 sm:mt-6 bg-zinc-800 text-sm w-full rounded-sm"
         />
 
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-4 mt-6 text-sm w-full bg-zinc-800 rounded-sm"
+          className="p-3 sm:p-4 mt-5 sm:mt-6 text-sm w-full bg-zinc-800 rounded-sm"
         />
 
         <p className="text-red-700 font-semibold text-sm mt-1">{error}</p>
 
         <button
           type="submit"
-          className="bg-red-700 text-white w-full p-4 mt-6 text-sm font-semibold rounded-sm cursor-pointer hover:shadow-lg hover:shadow-black/40"
+          className="bg-red-700 text-white w-full p-3 sm:p-4 mt-5 sm:mt-6 text-sm font-semibold rounded-sm cursor-pointer hover:shadow-lg hover:shadow-black/40"
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
 
-        <p className="text-xs mt-6 w-full font-semibold">
+        <p className="text-xs mt-5 sm:mt-6 w-full font-semibold">
           {isSignInForm ? "New to Netflix?" : "Already a user?"}
           <span
             className="underline cursor-pointer ml-1"

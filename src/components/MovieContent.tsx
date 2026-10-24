@@ -17,10 +17,11 @@ const MovieContent = () => {
     <div className="relative w-screen h-screen bg-black overflow-hidden flex flex-col justify-center">
       <button
         onClick={() => navigate("/browse")}
-        className="absolute top-6 left-6 z-50 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-lg cursor-pointer transition duration-200 text-sm"
+        className="absolute top-4 left-4 sm:top-6 sm:left-6 z-50 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg cursor-pointer transition duration-200 text-xs sm:text-sm"
       >
         <ArrowLeft size={18} />
-        Back to Browse
+        <span className="hidden sm:inline">Back to Browse</span>
+        <span className="sm:hidden">Back</span>
       </button>
       <div>
         <iframe

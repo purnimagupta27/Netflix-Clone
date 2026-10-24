@@ -60,26 +60,27 @@ const Header = () => {
 
 
   return (
-    <div className="absolute px-20 py-6 bg-linear-to-b from-black w-full flex justify-between z-20">
+    <div className="absolute px-4 sm:px-8 md:px-14 lg:px-20 py-4 md:py-6 bg-linear-to-b from-black w-full flex items-center justify-between gap-2 z-20">
       <img
-        className="w-38 min-w-38 h-auto shrink-0 object-contain"
+        className="w-24 sm:w-28 md:w-32 lg:w-38 h-auto shrink-0 object-contain"
         src={logo}
         alt="Logo"
       />
-      <button 
-      onClick={handleGptSearch}
-      className="ml-240 bg-white/20 hover:bg-white/15 px-4 py-2 rounded text-base text-white flex flex-row items-center gap-1 font-semibold cursor-pointer">
-        {showGptSearch? "HomePage" : "Gpt Search"}
-      </button>
+      <div className="flex items-center gap-2 sm:gap-4">
+        <button 
+        onClick={handleGptSearch}
+        className="bg-white/20 hover:bg-white/15 px-2 sm:px-4 py-1.5 sm:py-2 rounded text-xs sm:text-base text-white flex flex-row items-center gap-1 font-semibold cursor-pointer whitespace-nowrap">
+          {showGptSearch? "HomePage" : "Gpt Search"}
+        </button>
 
       {user && (
         <div className="relative">
           <div
             onClick={handleIsOpen}
-            className="flex items-center gap-1 px-2 py-1 hover:bg-white/20  rounded-sm transition-all duration-200 cursor-pointer"
+            className="flex items-center gap-1 px-1 sm:px-2 py-1 hover:bg-white/20  rounded-sm transition-all duration-200 cursor-pointer"
           >
             <img
-              className="w-8 h-8 object-cover"
+              className="w-7 h-7 sm:w-8 sm:h-8 object-cover"
               src={profileLogo}
               alt="Profile"
             />
@@ -92,7 +93,7 @@ const Header = () => {
           </div>
 
           {isOpen && (
-            <div className="absolute right-0 mt-2 w-40 bg-white/20 shadow-xl overflow-hidden z-50">
+            <div className="absolute right-0 mt-2 w-36 sm:w-40 bg-white/20 shadow-xl overflow-hidden z-50">
               {/* <p className="px-4 py-2 text-sm text-gray-300 border-b border-gray-700">{user?.displayName}</p> */}
               <button
                 onClick={handleSignout}
@@ -104,6 +105,7 @@ const Header = () => {
           )}
         </div>
       )}
+      </div>
     </div>
   );
 };
