@@ -16,67 +16,60 @@ const Login = () => {
   
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const name = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
   const toggleSignIn = () => {
+    if (isLoading) return;
     setIsSignInForm(!isSignInForm);
+    setError(null);
   };
 
-  const checkValidation = () => {
+  const checkValidation = async () => {
     if (!email.current || !password.current) return;
     const message = validateInput(email.current.value, password.current.value);
     setError(message);
     if (message) return;
 
-    if (!isSignInForm) {
-      createUserWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value,
-      )
-        .then((userCredential) => {
-          const user = userCredential.user;
-          updateProfile(user, {
+    setIsLoading(true);
+    try {
+      if (!isSignInForm) {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value,
+        );
+        const user = userCredential.user;
+        await updateProfile(user, {
+          displayName: name.current?.value,
+        });
+        dispatch(
+          addUser({
+            uid: user.uid,
+            email: user.email,
             displayName: name.current?.value,
           })
-            .then(() => {
-              dispatch(
-                addUser({
-                  uid: user.uid,
-                  email: user.email,
-                  displayName: name.current?.value,
-                })
-              );
-            })
-            .catch((error) => {
-              console.log(error.message);
-            });
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setError(errorCode + "-" + errorMessage);
-        });
-    } else {
-      signInWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value,
-      )
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          dispatch(addUser({email: user.email, displayName: user.displayName}))
-          //console.log(user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setError(errorCode + "-" + errorMessage);
-        });
+        );
+      } else {
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value,
+        );
+        // Signed in
+        const user = userCredential.user;
+        dispatch(addUser({ email: user.email, displayName: user.displayName }));
+      }
+    } catch (err) {
+      const errorCode = (err as { code?: string }).code;
+      const errorMessage =
+        err instanceof Error ? err.message : "Something went wrong";
+      setError(errorCode + "-" + errorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -105,7 +98,8 @@ const Login = () => {
             ref={name}
             type="text"
             placeholder="Full name"
-            className="p-3 sm:p-4 mt-4 bg-zinc-800 text-sm w-full rounded-sm"
+            disabled={isLoading}
+            className="p-3 sm:p-4 mt-4 bg-zinc-800 text-sm w-full rounded-sm disabled:opacity-60"
           />
         )}
 
@@ -113,29 +107,44 @@ const Login = () => {
           ref={email}
           type="email"
           placeholder="Email address or Phone number"
-          className="p-3 sm:p-4 mt-5 sm:mt-6 bg-zinc-800 text-sm w-full rounded-sm"
+          disabled={isLoading}
+          className="p-3 sm:p-4 mt-5 sm:mt-6 bg-zinc-800 text-sm w-full rounded-sm disabled:opacity-60"
         />
 
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-3 sm:p-4 mt-5 sm:mt-6 text-sm w-full bg-zinc-800 rounded-sm"
+          disabled={isLoading}
+          className="p-3 sm:p-4 mt-5 sm:mt-6 text-sm w-full bg-zinc-800 rounded-sm disabled:opacity-60"
         />
 
         <p className="text-red-700 font-semibold text-sm mt-1">{error}</p>
 
         <button
           type="submit"
-          className="bg-red-700 text-white w-full p-3 sm:p-4 mt-5 sm:mt-6 text-sm font-semibold rounded-sm cursor-pointer hover:shadow-lg hover:shadow-black/40"
+          disabled={isLoading}
+          aria-busy={isLoading}
+          className="bg-red-700 text-white w-full p-3 sm:p-4 mt-5 sm:mt-6 text-sm font-semibold rounded-sm cursor-pointer hover:shadow-lg hover:shadow-black/40 disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          {isSignInForm ? "Sign In" : "Sign Up"}
+          {isLoading ? (
+            <span className="flex items-center justify-center gap-2">
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+              {isSignInForm ? "Signing In..." : "Signing Up..."}
+            </span>
+          ) : isSignInForm ? (
+            "Sign In"
+          ) : (
+            "Sign Up"
+          )}
         </button>
 
         <p className="text-xs mt-5 sm:mt-6 w-full font-semibold">
           {isSignInForm ? "New to Netflix?" : "Already a user?"}
           <span
-            className="underline cursor-pointer ml-1"
+            className={`underline ml-1 ${
+              isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+            }`}
             onClick={toggleSignIn}
           >
             {isSignInForm ? "Sign Up now" : "Sign In now"}

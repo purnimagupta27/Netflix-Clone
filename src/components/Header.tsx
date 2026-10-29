@@ -67,11 +67,13 @@ const Header = () => {
         alt="Logo"
       />
       <div className="flex items-center gap-2 sm:gap-4">
+      {user && (
         <button 
         onClick={handleGptSearch}
         className="bg-white/20 hover:bg-white/15 px-2 sm:px-4 py-1.5 sm:py-2 rounded text-xs sm:text-base text-white flex flex-row items-center gap-1 font-semibold cursor-pointer whitespace-nowrap">
           {showGptSearch? "HomePage" : "Gpt Search"}
         </button>
+      )}
 
       {user && (
         <div className="relative">
